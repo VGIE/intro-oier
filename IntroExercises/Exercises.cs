@@ -12,7 +12,7 @@ namespace IntroExercises
         //Find should return the position in array where value appears for the first time. -1 if the value isn't found or the array is empty/null
         public static int Find(int[] array, int value)
         {
-            for (int i = 0; i < array.length; i++)
+            for (int i = 0; i < array.Length; i++)
             {
                 if (array[i] == value)
                     return i;
@@ -25,7 +25,7 @@ namespace IntroExercises
         public static int Count(int[] array, int value)
         {
             int count = 0;
-            for (int i = 0; i < array.length; i++)
+            for (int i = 0; i < array.Length; i++)
             {
                 if (array[i] == value)
                     count++;
@@ -38,7 +38,18 @@ namespace IntroExercises
         //-1 if endIndex is less than startIndex or any of them is outside the array
         public static int Find(int[] array, int value, int startIndex, int endIndex)
         {
-            return 0;
+            int mid = (startIndex + endIndex) / 2;
+            while (array[mid] != value)
+            {
+                if (array[mid] < value)
+                    startIndex = mid + 1;
+                if (array[mid] > value)
+                    endIndex = mid - 1;
+
+                mid = (startIndex + endIndex) / 2;
+            }
+            return mid;
+            
         }
 
         //TODO #4
@@ -47,7 +58,13 @@ namespace IntroExercises
 
         public static int Count(int[] array, int value, int startIndex, int endIndex)
         {
-            return 0;
+            int count = 0;
+            for (int i = startIndex; i <= endIndex; i++)
+            {
+                if (array[i] == value)
+                    count++;
+            }
+            return count;
         }
 
         //TODO #5
@@ -60,7 +77,20 @@ namespace IntroExercises
         //  AreEqual(null, null) => false
         public static bool AreEqual(int[] A, int[] B)
         {
-            return true;
+            if (A == null || B == null)
+                return false;
+            if (A.Length == B.Length)
+            {
+                for (int i = 0; i < A.Length; i++)
+                {
+                    int countA = Count(A, A[i]);
+                    int countB = Count(B, B[i]);
+                    if (countA != countB)
+                        return false;
+                }
+                return true;
+            }
+            return false;
         }
     }
 }
